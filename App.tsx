@@ -1,51 +1,55 @@
-import React, {useEffect, useReducer, useState} from 'react';
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import React, {useState} from 'react';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
 import Animated, {
+  interpolateColor,
   useAnimatedStyle,
+  useDerivedValue,
   useSharedValue,
   withRepeat,
   withSequence,
   withSpring,
   withTiming,
 } from 'react-native-reanimated';
-import Icon from 'react-native-vector-icons/FontAwesome5';
-
+import Icon from 'react-native-vector-icons/EvilIcons';
 
 const App = () => {
   const progress = useSharedValue(0);
+  const [pressed, setPressed] = useState(false);
+  const colorAnimation = useDerivedValue(() => {
+    return pressed ? withTiming(0) : withTiming(1);
+  }, [pressed]);
+
+  const colorRStyle = useAnimatedStyle(() => {
+    const backgroundColor = interpolateColor(
+      colorAnimation.value,
+      [0, 1],
+      ['white', 'black'],
+    );
+    return {backgroundColor};
+  }, [pressed]);
 
   const reanimatedStyle = useAnimatedStyle(() => {
     return {
       transform: [{rotate: withSpring(`${progress.value}deg`)}],
-      // backgroundColor: progress.value > 0 ? 'gray': 'white'
     };
   }, []);
 
   return (
     <View style={styles.container}>
-      <Animated.View style={[styles.shape, reanimatedStyle]}>
-        {/* <Text style = {[{fontSize: 100}]}>+</Text> */}
-        <Icon name = 'bell' size = {30} color = 'green'/>
-      </Animated.View>
       <TouchableOpacity
-      onPress={() => progress.value = withSequence(
-        withTiming(-60, { duration: 80 }),
-        withRepeat(withTiming(60, { duration: 160 }), 6, true),
-        withTiming(0, { duration: 80 })
-      )}
-        style={{
-          marginTop: 50,
-          backgroundColor: 'white',
-          padding: 20,
-          borderRadius: 10,
+        activeOpacity={1}
+        onPress={() => {
+          setPressed(!pressed);
+          progress.value = withSequence(
+            withTiming(-50, {duration: 80}),
+            withRepeat(withTiming(50, {duration: 200}), 4, true),
+            withTiming(0, {duration: 80}),
+          );
         }}>
-        <Text style={{fontSize: 24}}>Animate</Text>
+        <Animated.View style={[styles.shape, reanimatedStyle, colorRStyle]}>
+          <Icon name="bell" size={70} color="green" />
+        </Animated.View>
       </TouchableOpacity>
     </View>
   );
@@ -61,11 +65,15 @@ const styles = StyleSheet.create({
 
   shape: {
     justifyContent: 'center',
-    height: 250,
-    width: 250,
-    borderRadius: 125,
+    height: 200,
+    width: 200,
+    borderRadius: 100,
     backgroundColor: 'white',
-    alignItems: 'center'
+    alignItems: 'center',
+    shadowColor: 'black',
+    shadowRadius: 10,
+    shadowOpacity: 0.2,
+    shadowOffset: {height: 10, width: 0},
   },
 });
 
