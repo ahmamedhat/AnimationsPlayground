@@ -7,6 +7,17 @@ const styles = StyleSheet.create({
       backgroundColor: Colors.COLOR_FIRST,
       justifyContent: 'center',
       alignItems: 'center'
+  },
+
+  card: {
+    height: 300,
+    width: 200,
+    backgroundColor: Colors.COLOR_FOURTH,
+    borderRadius: 20,
+    shadowColor: 'black',
+    shadowOffset: {height: 6 , width: 3},
+    shadowOpacity: 0.15,
+    shadowRadius: 15,
   }
 });
 
