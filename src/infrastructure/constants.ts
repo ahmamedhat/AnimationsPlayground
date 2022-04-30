@@ -15,5 +15,9 @@ export enum Colors {
     COLOR_OFF_WHITE = "#f7f7f7",
     COLOR_DANGER = '#df4759',
     COLOR_SUCCESS = '#5cb85c',
-    COLOR_GRAY = '#d1d1d1'
+    COLOR_GRAY = '#d1d1d1',
+    COLOR_PRIMARY_GREEN = '#2f783a',
+    COLOR_SECONDARY_GREEN = '#cadecd',
+    TEXT_GRAY = '#9c9c9c'
+
 }

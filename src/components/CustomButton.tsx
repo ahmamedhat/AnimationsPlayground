@@ -28,12 +28,12 @@ export default CustomButton
 
 const styles = (disabled: boolean) => StyleSheet.create({
     container: {
-        backgroundColor: disabled ? Colors.COLOR_GRAY : Colors.COLOR_FIRST,
+        backgroundColor: disabled ? Colors.COLOR_GRAY : Colors.COLOR_PRIMARY_GREEN,
         height: 42,
         margin: 20,
         justifyContent: 'center',
         borderRadius: 20,
-        shadowColor: disabled ? Colors.COLOR_GRAY : Colors.COLOR_FIRST,
+        shadowColor: disabled ? Colors.COLOR_GRAY : Colors.COLOR_PRIMARY_GREEN,
         shadowOffset: {width: 1, height: 8},
         shadowRadius: 6,
         shadowOpacity: 0.24,

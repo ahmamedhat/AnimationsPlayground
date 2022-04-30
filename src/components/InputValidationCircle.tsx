@@ -25,7 +25,7 @@ const InputValidationCircle = (props: InputValidationCircleProps) => {
             : 'rgba(0,0,0,0)',
         position: 'absolute',
         right: 10,
-        top: 10,
+        top: 15,
       }}>
       {props.error && props.touched ? (
         <Icon name="times" size={12} color={Colors.COLOR_OFF_WHITE} />
