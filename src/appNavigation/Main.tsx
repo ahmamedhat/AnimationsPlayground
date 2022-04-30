@@ -1,17 +1,18 @@
 import React from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import Animations from '../animationsWithReanimated2/Animations';
-import PanGestureHandler from '../panGestureHandler/PanGestureHandler';
+import Animations from '../screens/animationsWithReanimated2/Animations';
 import {Colors} from '../infrastructure/constants';
 import {TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import PanGestureHandler from '../screens/panGestureHandler/PanGestureHandler';
+import FormScreen from '../screens/form/Form';
 
 const Drawer = createDrawerNavigator();
 
 const MainNavigation = () => {
   return (
     <Drawer.Navigator
-      initialRouteName="GestureHandler"
+      initialRouteName="Form"
       screenOptions={({navigation}) => ({
         drawerStyle: {backgroundColor: Colors.COLOR_THIRD},
         headerTransparent: true,
@@ -24,6 +25,7 @@ const MainNavigation = () => {
           </TouchableOpacity>
         ),
       })}>
+      <Drawer.Screen name="Form" component={FormScreen} />
       <Drawer.Screen name="Animations" component={Animations} />
       <Drawer.Screen
         name="GestureHandler"

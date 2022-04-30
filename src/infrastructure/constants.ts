@@ -13,4 +13,7 @@ export enum Colors {
     COLOR_FOURTH = '#99C1B9',
     COLOR_FIFTH = '#8E7DBE',
     COLOR_OFF_WHITE = "#f7f7f7",
+    COLOR_DANGER = '#df4759',
+    COLOR_SUCCESS = '#5cb85c',
+    COLOR_GRAY = '#d1d1d1'
 }
