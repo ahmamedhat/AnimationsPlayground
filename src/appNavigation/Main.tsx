@@ -7,6 +7,7 @@ import PanGestureHandler from '../screens/panGestureHandler/PanGestureHandler';
 import FormScreen from '../screens/form/Form';
 import { useTheme } from '@react-navigation/native';
 import { Theme } from '../infrastructure/theme';
+import CustomDrawer from '../components/CustomDrawer';
 
 const Drawer = createDrawerNavigator();
 
@@ -16,6 +17,7 @@ const MainNavigation = () => {
   return (
     <Drawer.Navigator
       initialRouteName="Form"
+      drawerContent={props => <CustomDrawer {...props}/>}
       screenOptions={({navigation}) => ({
         drawerStyle: {backgroundColor: theme.colors.COLOR_THIRD},
         headerTransparent: true,
