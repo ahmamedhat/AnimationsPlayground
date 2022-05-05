@@ -1,18 +1,18 @@
 import React, {useEffect, useState} from 'react';
 import {Appearance, View} from 'react-native';
-import {
-  NavigationContainer,
-} from '@react-navigation/native';
+import {NavigationContainer} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import {toggleTheme} from '../../store/actions/theme';
 import {Text} from 'moti';
 import MainNavigation from '../../appNavigation/Main';
-import { DarkTheme, LightTheme } from '../../infrastructure/theme';
+import {DarkTheme, LightTheme} from '../../infrastructure/theme';
+import '../../infrastructure/constants/DSCLocalize'
 
 const SplashScreen = () => {
   const dispatch = useDispatch();
   const themeState = useSelector((state: any) => state.theme.currentTheme);
   const colorScheme = Appearance.getColorScheme();
+
 
   Appearance.addChangeListener(({colorScheme}) => {
     dispatch(toggleTheme(colorScheme ? colorScheme : 'light'));

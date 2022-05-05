@@ -1,6 +1,6 @@
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
-import {Colors, ScreenDimensions} from '../../infrastructure/constants';
+import {ScreenDimensions} from '../../infrastructure/constants/general';
 import {Formik} from 'formik';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import * as Yup from 'yup';
@@ -8,8 +8,10 @@ import InputValidationCircle from '../../components/InputValidationCircle';
 import FormInput from '../../components/FormInput';
 import CustomButton from '../../components/CustomButton';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { useTheme } from '@react-navigation/native';
-import { Theme } from '../../infrastructure/theme';
+import {useTheme} from '@react-navigation/native';
+import {Theme} from '../../infrastructure/theme';
+import { useTranslation } from 'react-i18next';
+
 
 
 interface FormScreenProps {}
@@ -23,8 +25,17 @@ const LoginSchema = Yup.object().shape({
 });
 
 const FormScreen = (props: FormScreenProps) => {
+  const theme = useTheme() as Theme;
 
-  const theme = useTheme() as Theme
+  const {t ,i18n} = useTranslation()
+
+  const selectedLanguageCode = i18n.language
+
+  const setLanguage = (code: string) => {
+    console.log('selected lang', selectedLanguageCode);
+    
+    return i18n.changeLanguage(code)
+  }
 
   return (
     <View
@@ -53,7 +64,7 @@ const FormScreen = (props: FormScreenProps) => {
           top: 365,
           width: ScreenDimensions.WINDOW_WIDTH - 40,
           height: 100,
-          borderRadius: 10
+          borderRadius: 10,
         }}
       />
 
@@ -85,7 +96,7 @@ const FormScreen = (props: FormScreenProps) => {
                 marginBottom: 10,
                 color: theme.colors.COLOR_PRIMARY_GREEN,
               }}>
-              Welcome back
+              {t("common:login_screen_welcome")}
             </Text>
             <Text
               style={{
@@ -94,7 +105,7 @@ const FormScreen = (props: FormScreenProps) => {
                 fontSize: 18,
                 color: theme.colors.TEXT_GRAY,
               }}>
-              Login to your account
+              {t("common:login_screen_description")}
             </Text>
           </View>
 
@@ -125,8 +136,7 @@ const FormScreen = (props: FormScreenProps) => {
                     <InputValidationCircle
                       error={errors.email}
                       touched={touched.email}
-                      value = {values.email}
-
+                      value={values.email}
                     />
                     <View style={{position: 'absolute', top: 9, left: 10}}>
                       <Icon
@@ -135,8 +145,12 @@ const FormScreen = (props: FormScreenProps) => {
                         color={theme.colors.COLOR_PRIMARY_GREEN}
                       />
                     </View>
-                    {(errors.email && touched.email) && (
-                      <Text style={{color: theme.colors.COLOR_DANGER, marginTop: 5}}>
+                    {errors.email && touched.email && (
+                      <Text
+                        style={{
+                          color: theme.colors.COLOR_DANGER,
+                          marginTop: 5,
+                        }}>
                         {errors.email}
                       </Text>
                     )}
@@ -154,7 +168,7 @@ const FormScreen = (props: FormScreenProps) => {
                     <InputValidationCircle
                       error={errors.password}
                       touched={touched.password}
-                      value = {values.password}
+                      value={values.password}
                     />
                     <View style={{position: 'absolute', top: 10, left: 10}}>
                       <Icon
@@ -164,7 +178,11 @@ const FormScreen = (props: FormScreenProps) => {
                       />
                     </View>
                     {errors.password && touched.password && (
-                      <Text style={{color: theme.colors.COLOR_DANGER, marginTop: 5}}>
+                      <Text
+                        style={{
+                          color: theme.colors.COLOR_DANGER,
+                          marginTop: 5,
+                        }}>
                         {errors.password}
                       </Text>
                     )}
@@ -173,13 +191,23 @@ const FormScreen = (props: FormScreenProps) => {
                   <CustomButton
                     title="Login"
                     onPress={() => console.log('Login')}
-                    disabled={(Object.keys(errors).length > 0 || values.email.trim() == '' || values.email.trim() == '')}
+                    disabled={
+                      Object.keys(errors).length > 0 ||
+                      values.email.trim() == '' ||
+                      values.email.trim() == ''
+                    }
                   />
                 </View>
               )}
             </Formik>
           </View>
         </View>
+        <TouchableOpacity onPress={() => setLanguage('ar')}>
+          <Text>العربية</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setLanguage('en')}>
+          <Text>English</Text>
+        </TouchableOpacity>
       </KeyboardAwareScrollView>
     </View>
   );
