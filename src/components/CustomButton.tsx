@@ -1,6 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, TouchableOpacity } from 'react-native'
-import { Colors } from '../infrastructure/constants'
+import { useTheme } from '@react-navigation/native'
+import { Theme } from '../infrastructure/theme'
 
 
 interface ButtonProps {
@@ -10,13 +11,14 @@ interface ButtonProps {
 }
 
 const CustomButton = (props: ButtonProps) => {
+  const theme = useTheme() as Theme
   
   return (
     <TouchableOpacity
           onPress={props.onPress}
           disabled = {props.disabled}
-          style={styles(props.disabled).container}>
-          <Text style={styles(props.disabled).text}>
+          style={styles(props.disabled, theme).container}>
+          <Text style={styles(props.disabled, theme).text}>
             {props.title}
           </Text>
         </TouchableOpacity>
@@ -26,14 +28,14 @@ const CustomButton = (props: ButtonProps) => {
 export default CustomButton
 
 
-const styles = (disabled: boolean) => StyleSheet.create({
+const styles = (disabled: boolean, theme: Theme) => StyleSheet.create({
     container: {
-        backgroundColor: disabled ? Colors.COLOR_GRAY : Colors.COLOR_PRIMARY_GREEN,
+        backgroundColor: disabled ? theme.colors.COLOR_GRAY : theme.colors.COLOR_PRIMARY_GREEN,
         height: 42,
         margin: 20,
         justifyContent: 'center',
         borderRadius: 20,
-        shadowColor: disabled ? Colors.COLOR_GRAY : Colors.COLOR_PRIMARY_GREEN,
+        shadowColor: disabled ? theme.colors.COLOR_GRAY : theme.colors.COLOR_PRIMARY_GREEN,
         shadowOffset: {width: 1, height: 8},
         shadowRadius: 6,
         shadowOpacity: 0.24,
@@ -41,7 +43,7 @@ const styles = (disabled: boolean) => StyleSheet.create({
       },
       text: {
         alignSelf: 'center',
-        color: Colors.COLOR_OFF_WHITE,
+        color: theme.colors.COLOR_OFF_WHITE,
         fontSize: 20,
         fontWeight: '500',
       },

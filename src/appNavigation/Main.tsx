@@ -1,27 +1,30 @@
 import React from 'react';
-import {createDrawerNavigator} from '@react-navigation/drawer';
+import {createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList} from '@react-navigation/drawer';
 import Animations from '../screens/animationsWithReanimated2/Animations';
-import {Colors} from '../infrastructure/constants';
 import {TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import PanGestureHandler from '../screens/panGestureHandler/PanGestureHandler';
 import FormScreen from '../screens/form/Form';
+import { useTheme } from '@react-navigation/native';
+import { Theme } from '../infrastructure/theme';
 
 const Drawer = createDrawerNavigator();
 
 const MainNavigation = () => {
+  const theme = useTheme() as Theme
+
   return (
     <Drawer.Navigator
       initialRouteName="Form"
       screenOptions={({navigation}) => ({
-        drawerStyle: {backgroundColor: Colors.COLOR_THIRD},
+        drawerStyle: {backgroundColor: theme.colors.COLOR_THIRD},
         headerTransparent: true,
         headerTitle: '',
         headerLeft: () => (
           <TouchableOpacity
             style={{marginStart: 15, marginBottom: 3}}
             onPress={() => navigation.toggleDrawer()}>
-            <Icon name="bars" size={32} color={Colors.COLOR_THIRD} />
+            <Icon name="bars" size={32} color={theme.colors.COLOR_THIRD} />
           </TouchableOpacity>
         ),
       })}>

@@ -8,24 +8,30 @@ import InputValidationCircle from '../../components/InputValidationCircle';
 import FormInput from '../../components/FormInput';
 import CustomButton from '../../components/CustomButton';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { useTheme } from '@react-navigation/native';
+import { Theme } from '../../infrastructure/theme';
+
 
 interface FormScreenProps {}
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Email is required'),
   password: Yup.string()
-    .min(8, 'Password is too short!')
+    .min(8, 'Password is too short')
     .max(50, 'Password is too long!')
     .required('Password is required!'),
 });
 
 const FormScreen = (props: FormScreenProps) => {
+
+  const theme = useTheme() as Theme
+
   return (
     <View
       style={{
         flex: 1,
         alignItems: 'center',
-        backgroundColor: Colors.COLOR_OFF_WHITE,
+        backgroundColor: theme.colors.COLOR_OFF_WHITE,
       }}>
       <View
         style={{
@@ -36,10 +42,21 @@ const FormScreen = (props: FormScreenProps) => {
           source={require('../../assets/images/green-plants.jpg')}
           style={{width: '100%', height: '100%'}}
           resizeMode={'cover'}
-          borderBottomRightRadius={60}
-          borderBottomLeftRadius={60}
+          borderBottomRightRadius={20}
+          borderBottomLeftRadius={20}
         />
       </View>
+      <View
+        style={{
+          backgroundColor: theme.colors.COLOR_SECONDARY_GREEN,
+          position: 'absolute',
+          top: 365,
+          width: ScreenDimensions.WINDOW_WIDTH - 40,
+          height: 100,
+          borderRadius: 10
+        }}
+      />
+
       <KeyboardAwareScrollView
         bounces={false}
         showsVerticalScrollIndicator={false}
@@ -49,7 +66,7 @@ const FormScreen = (props: FormScreenProps) => {
         scrollToOverflowEnabled={true}
         enableAutomaticScroll={true}
         style={{
-          backgroundColor: Colors.COLOR_OFF_WHITE,
+          backgroundColor: theme.colors.COLOR_OFF_WHITE,
           width: '100%',
           paddingHorizontal: 20,
           height: ScreenDimensions.WINDOW_HEIGHT / 1.7,
@@ -58,8 +75,7 @@ const FormScreen = (props: FormScreenProps) => {
           paddingTop: 60,
         }}
         keyboardShouldPersistTaps="handled">
-        <View
-          >
+        <View>
           <View style={{marginBottom: 30}}>
             <Text
               style={{
@@ -67,7 +83,7 @@ const FormScreen = (props: FormScreenProps) => {
                 fontWeight: '700',
                 fontSize: 36,
                 marginBottom: 10,
-                color: Colors.COLOR_PRIMARY_GREEN,
+                color: theme.colors.COLOR_PRIMARY_GREEN,
               }}>
               Welcome back
             </Text>
@@ -76,7 +92,7 @@ const FormScreen = (props: FormScreenProps) => {
                 textAlign: 'center',
                 fontWeight: '400',
                 fontSize: 18,
-                color: Colors.TEXT_GRAY,
+                color: theme.colors.TEXT_GRAY,
               }}>
               Login to your account
             </Text>
@@ -99,12 +115,12 @@ const FormScreen = (props: FormScreenProps) => {
                 touched,
               }) => (
                 <View style={{width: '100%', paddingBottom: 50}}>
-                  <View>
+                  <View style={{marginBottom: 15}}>
                     <FormInput
                       handleChange={handleChange('email')}
                       handleBlur={handleBlur('email')}
                       value={values.email}
-                      placeholder = 'Email'
+                      placeholder="Email"
                     />
                     <InputValidationCircle
                       error={errors.email}
@@ -114,17 +130,22 @@ const FormScreen = (props: FormScreenProps) => {
                       <Icon
                         name="person"
                         size={30}
-                        color={Colors.COLOR_PRIMARY_GREEN}
+                        color={theme.colors.COLOR_PRIMARY_GREEN}
                       />
                     </View>
+                    {(errors.email && touched.email) && (
+                      <Text style={{color: theme.colors.COLOR_DANGER, marginTop: 5}}>
+                        {errors.email}
+                      </Text>
+                    )}
                   </View>
-                  <View>
+                  <View style={{marginBottom: 15}}>
                     <FormInput
                       handleChange={handleChange('password')}
                       handleBlur={handleBlur('password')}
                       value={values.password}
                       secureEntry={true}
-                      placeholder = 'Password'
+                      placeholder="Password"
                       noCapitalize={true}
                     />
 
@@ -136,9 +157,14 @@ const FormScreen = (props: FormScreenProps) => {
                       <Icon
                         name="lock"
                         size={28}
-                        color={Colors.COLOR_PRIMARY_GREEN}
+                        color={theme.colors.COLOR_PRIMARY_GREEN}
                       />
                     </View>
+                    {errors.password && touched.password && (
+                      <Text style={{color: theme.colors.COLOR_DANGER, marginTop: 5}}>
+                        {errors.password}
+                      </Text>
+                    )}
                   </View>
 
                   <CustomButton

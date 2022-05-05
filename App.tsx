@@ -1,19 +1,17 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
-import MainNavigation from './src/appNavigation/Main';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {Provider} from 'react-redux';
+import store from './src/store';
+import SplashScreen from './src/screens/splash/Splash';
 
 const App = () => {
   return (
-    <SafeAreaProvider>
-        <NavigationContainer>
-          <MainNavigation />
-        </NavigationContainer>
-     </SafeAreaProvider>
+    <Provider store={store}>
+      <SafeAreaProvider>
+        <SplashScreen />
+      </SafeAreaProvider>
+    </Provider>
   );
 };
-
-const styles = StyleSheet.create({});
 
 export default App;

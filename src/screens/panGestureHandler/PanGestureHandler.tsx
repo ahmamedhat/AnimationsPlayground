@@ -8,8 +8,12 @@ import Animated, {
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated';
+import { useTheme } from '@react-navigation/native'
+import { Theme } from '../../infrastructure/theme';
 
 const PanGestureHandler = () => {
+  const theme = useTheme() as Theme
+
   const cardXProgress = useSharedValue(0);
   const cardYProgress = useSharedValue(0);
   const progressContext = useSharedValue({x: 0, y: 0});
@@ -40,9 +44,9 @@ const PanGestureHandler = () => {
     };
   });
   return (
-    <View style={styles.container}>
+    <View style={styles(theme).container}>
       <GestureDetector gesture={gesture}>
-        <Animated.View style={[styles.card, cardAnimation]} />
+        <Animated.View style={[styles(theme).card, cardAnimation]} />
       </GestureDetector>
     </View>
   );

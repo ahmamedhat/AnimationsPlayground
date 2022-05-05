@@ -1,12 +1,13 @@
 import {StyleSheet} from 'react-native';
 import { Colors } from '../../infrastructure/constants';
+import { Theme } from '../../infrastructure/theme';
 
-const styles = StyleSheet.create({
+const styles = (theme: Theme) => StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: Colors.COLOR_FIFTH,
+    backgroundColor: theme.colors.COLOR_FIFTH,
   },
 
   shape: {

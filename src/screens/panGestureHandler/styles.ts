@@ -1,11 +1,11 @@
 import {StyleSheet} from 'react-native';
-import { Colors } from '../../infrastructure/constants';
+import { Theme } from '../../infrastructure/theme';
 
 
-const styles = StyleSheet.create({
+const styles = (theme: Theme) => StyleSheet.create({
   container: {
       flex: 1,
-      backgroundColor: Colors.COLOR_FIRST,
+      backgroundColor: theme.colors.COLOR_FIRST,
       justifyContent: 'center',
       alignItems: 'center'
   },
@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
   card: {
     height: 300,
     width: 200,
-    backgroundColor: Colors.COLOR_FOURTH,
+    backgroundColor: theme.colors.COLOR_SECOND,
     borderRadius: 20,
     shadowColor: 'black',
     shadowOffset: {height: 6 , width: 3},
