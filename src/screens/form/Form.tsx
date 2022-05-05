@@ -125,6 +125,8 @@ const FormScreen = (props: FormScreenProps) => {
                     <InputValidationCircle
                       error={errors.email}
                       touched={touched.email}
+                      value = {values.email}
+
                     />
                     <View style={{position: 'absolute', top: 9, left: 10}}>
                       <Icon
@@ -152,6 +154,7 @@ const FormScreen = (props: FormScreenProps) => {
                     <InputValidationCircle
                       error={errors.password}
                       touched={touched.password}
+                      value = {values.password}
                     />
                     <View style={{position: 'absolute', top: 10, left: 10}}>
                       <Icon
@@ -170,7 +173,7 @@ const FormScreen = (props: FormScreenProps) => {
                   <CustomButton
                     title="Login"
                     onPress={() => console.log('Login')}
-                    disabled={Object.keys(errors).length > 0}
+                    disabled={(Object.keys(errors).length > 0 || values.email.trim() == '' || values.email.trim() == '')}
                   />
                 </View>
               )}
