@@ -20,7 +20,6 @@ target 'AnimationsPlayground' do
   )
 
 
-  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
   target 'AnimationsPlaygroundTests' do
     inherit! :complete

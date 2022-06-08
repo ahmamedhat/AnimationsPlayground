@@ -2,8 +2,8 @@ import {View, Text, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {ScreenDimensions} from '../../infrastructure/constants/general';
 import {Formik} from 'formik';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import * as Yup from 'yup';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import InputValidationCircle from '../../components/InputValidationCircle';
 import FormInput from '../../components/FormInput';
 import CustomButton from '../../components/CustomButton';
@@ -14,9 +14,9 @@ import { useTranslation } from 'react-i18next';
 
 
 
-interface FormScreenProps {}
+interface RegisterScreenProps {}
 
-const LoginSchema = Yup.object().shape({
+const RegisterSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Email is required'),
   password: Yup.string()
     .min(8, 'Password is too short')
@@ -24,7 +24,7 @@ const LoginSchema = Yup.object().shape({
     .required('Password is required!'),
 });
 
-const FormScreen = (props: FormScreenProps) => {
+const RegisterScreen = (props: RegisterScreenProps) => {
   const theme = useTheme() as Theme;
 
   const {t} = useTranslation()
@@ -108,7 +108,7 @@ const FormScreen = (props: FormScreenProps) => {
             <Formik
               initialValues={{email: '', password: ''}}
               onSubmit={values => console.log(values)}
-              validationSchema={LoginSchema}>
+              validationSchema={RegisterSchema}>
               {({
                 handleChange,
                 handleBlur,
@@ -194,10 +194,9 @@ const FormScreen = (props: FormScreenProps) => {
             </Formik>
           </View>
         </View>
-        
       </KeyboardAwareScrollView>
     </View>
   );
 };
 
-export default FormScreen;
+export default RegisterScreen;

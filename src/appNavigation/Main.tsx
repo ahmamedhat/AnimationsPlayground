@@ -1,5 +1,5 @@
 import React from 'react';
-import {createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList} from '@react-navigation/drawer';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 import Animations from '../screens/animationsWithReanimated2/Animations';
 import {TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -8,6 +8,7 @@ import FormScreen from '../screens/form/Form';
 import { useTheme } from '@react-navigation/native';
 import { Theme } from '../infrastructure/theme';
 import CustomDrawer from '../components/CustomDrawer';
+import RegisterScreen from '../screens/register/Register';
 
 const Drawer = createDrawerNavigator();
 
@@ -16,7 +17,7 @@ const MainNavigation = () => {
 
   return (
     <Drawer.Navigator
-      initialRouteName="Form"
+      initialRouteName="Register"
       drawerContent={props => <CustomDrawer {...props}/>}
       screenOptions={({navigation}) => ({
         drawerStyle: {backgroundColor: theme.colors.COLOR_THIRD},
@@ -30,7 +31,8 @@ const MainNavigation = () => {
           </TouchableOpacity>
         ),
       })}>
-      <Drawer.Screen name="Form" component={FormScreen} />
+      <Drawer.Screen name="Register" component={RegisterScreen} />
+      <Drawer.Screen name="Login" component={FormScreen} />
       <Drawer.Screen name="Animations" component={Animations} />
       <Drawer.Screen
         name="GestureHandler"

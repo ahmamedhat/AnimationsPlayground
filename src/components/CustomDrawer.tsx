@@ -1,4 +1,4 @@
-import {StyleSheet, Switch, Text, View} from 'react-native';
+import {StyleSheet, Switch, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import {
   DrawerContentScrollView,
@@ -8,6 +8,7 @@ import {useTheme} from '@react-navigation/native';
 import {Theme} from '../infrastructure/theme';
 import {useDispatch, useSelector} from 'react-redux';
 import {toggleTheme} from '../store/actions/theme';
+import {useTranslation} from 'react-i18next';
 
 const CustomDrawer = (props: any) => {
   const theme = useTheme() as Theme;
@@ -16,6 +17,12 @@ const CustomDrawer = (props: any) => {
 
   const toggleSwitch = () => {
     dispatch(toggleTheme(themeState == 'light' ? 'dark' : 'light'));
+  };
+
+  const {i18n} = useTranslation();
+
+  const setLanguage = (code: string) => {
+    return i18n.changeLanguage(code);
   };
 
   return (
@@ -44,6 +51,14 @@ const CustomDrawer = (props: any) => {
           onValueChange={toggleSwitch}
           value={themeState == 'light' ? false : true}
         />
+      </View>
+      <View style={{marginStart: 20}}>
+        <TouchableOpacity onPress={() => setLanguage('ar')}>
+          <Text>العربية</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setLanguage('en')}>
+          <Text>English</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
